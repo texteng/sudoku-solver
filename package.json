@@ -1,0 +1,19 @@
+{
+  "name": "sudoku-solver",
+  "version": "0.0.1",
+  "description": "This is a Sudoku Solver Puzzle written in typescript for fun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Teng",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "node": "^14.19.0",
+    "scss": "^0.2.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}

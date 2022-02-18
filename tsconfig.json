@@ -1,0 +1,11 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES2020",
+        "sourceMap": true,
+        "outFile": "scripts/main.js"
+    }// ,
+    // "files": [
+    //     "typescript/index.ts"
+    // ]
+}
