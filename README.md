@@ -7,5 +7,5 @@ This is a sudoku solver program made for me to practice coding
 
 ## Instructions
 * Use `npm install` in the sudoku solver directory to install npm packages
-* If you are using VsCode run build task (Ctrl+Shift+B)
-* Start editing the code in typescript/index.ts
+* Start editing the code in src/index.ts
+* To compile code type `npm run build`

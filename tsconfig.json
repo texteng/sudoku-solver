@@ -1,12 +1,12 @@
 {
-    "compileOnSave": true,
     "compilerOptions": {
-        "target": "ES2020",
+        "outDir": "./dist/",
         "sourceMap": true,
-        "outFile": "scripts/main.js",
-        "module": "UMD"
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es2020",
+        "allowJs": true,
+        "moduleResolution": "node"
     },
-    "files": [
-        "typescript/index.ts"
-    ]
+    "mode": "development"
 }
