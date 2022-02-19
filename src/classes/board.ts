@@ -21,32 +21,32 @@ export class Board {
     }))
   }
 
-  clearValuesBasedOnExistingNumbers() {
+  clearPossibleValuesWithExistingNumbers() {
     for (let rowNumber = 0; rowNumber < 9; rowNumber++) {
       for (let columnNumber = 0; columnNumber < 9; columnNumber++) {
         let currentSquare = this._state[rowNumber][columnNumber];
         if (currentSquare.isFull) {
-          this.clearRowBasedOnExistingNumber(rowNumber, currentSquare.currentNumber);
-          this.clearColumnBasedOnExistingNumber(columnNumber, currentSquare.currentNumber);
-          this.clearBoxBasedOnExistingNumber(rowNumber, columnNumber, currentSquare.currentNumber)
+          this.clearPossibleValuesInRow(rowNumber, currentSquare.currentNumber);
+          this.clearPossibleValuesInColumn(columnNumber, currentSquare.currentNumber);
+          this.clearPossibleValuesInBox(rowNumber, columnNumber, currentSquare.currentNumber)
         }
       }
     }
   }
   
-  clearRowBasedOnExistingNumber(rowNumber: number, value: numbers) {
+  clearPossibleValuesInRow(rowNumber: number, value: numbers) {
     for (let squareIndex = 0; squareIndex < 9; squareIndex++) {
       this._state[rowNumber][squareIndex].removePossibleNumber(value);
     }
   }
 
-  clearColumnBasedOnExistingNumber(columnNumber: number, value: numbers) {
+  clearPossibleValuesInColumn(columnNumber: number, value: numbers) {
     for (let rowNumber = 0; rowNumber < 9; rowNumber++) {
       this._state[rowNumber][columnNumber].removePossibleNumber(value);
     }
   }
 
-  clearBoxBasedOnExistingNumber(rowNumber: number, columnNumber: number, value: numbers) {
+  clearPossibleValuesInBox(rowNumber: number, columnNumber: number, value: numbers) {
     const boxFirstRowIndex = this.findBoxIndex(rowNumber);
     const boxFirstColumnIndex = this.findBoxIndex(columnNumber);
     for (let rowCount = 0; rowCount < 3; rowCount++) {
