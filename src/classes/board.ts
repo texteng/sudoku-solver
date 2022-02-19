@@ -1,25 +1,22 @@
-import { Square, numbers } from "./square";
+import { Square } from "./square";
+import { numbers, rawNumbers, importBoard } from '../types';
 export class Board {
 
-  private state: Square[][] = [[]];
-  boardData = mockSudokuBoard2;
+  private _state: Square[][] = [[]];
 
-  constructor() {
-    this.createBoard();
-    this.display();
-    this.clearValuesBasedOnExistingNumbers();
-    this.display();
-    this.clearValuesBasedOnExistingNumbers();
-    this.display();
-    this.clearValuesBasedOnExistingNumbers();
-    // console.log(this.state);
+  constructor(importBoardData: importBoard) {
+    this.createBoard(importBoardData);
   }
 
-  private createBoard() {
+  get state() {
+    return this._state;
+  }
+
+  private createBoard(importBoardData: importBoard) {
     let count = 1;
-    this.state = this.boardData.map((row) => row.map((squareData: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) => {
+    this._state = importBoardData.map((row) => row.map((squareData: rawNumbers) => {
       let square = new Square(count++);
-      if (squareData !== 0) square.setCurrentNumber(`${squareData}`);
+      if (squareData !== 0) square.currentNumber = `${squareData}`;
       return square;
     }))
   }
@@ -27,11 +24,11 @@ export class Board {
   clearValuesBasedOnExistingNumbers() {
     for (let rowNumber = 0; rowNumber < 9; rowNumber++) {
       for (let columnNumber = 0; columnNumber < 9; columnNumber++) {
-        let currentSquare = this.state[rowNumber][columnNumber];
-        if (currentSquare.isFilled) {
-          this.clearRowBasedOnExistingNumber(rowNumber, currentSquare.currentNum);
-          this.clearColumnBasedOnExistingNumber(columnNumber, currentSquare.currentNum);
-          this.clearBoxBasedOnExistingNumber(rowNumber, columnNumber, currentSquare.currentNum)
+        let currentSquare = this._state[rowNumber][columnNumber];
+        if (currentSquare.isFull) {
+          this.clearRowBasedOnExistingNumber(rowNumber, currentSquare.currentNumber);
+          this.clearColumnBasedOnExistingNumber(columnNumber, currentSquare.currentNumber);
+          this.clearBoxBasedOnExistingNumber(rowNumber, columnNumber, currentSquare.currentNumber)
         }
       }
     }
@@ -39,13 +36,13 @@ export class Board {
   
   clearRowBasedOnExistingNumber(rowNumber: number, value: numbers) {
     for (let squareIndex = 0; squareIndex < 9; squareIndex++) {
-      this.state[rowNumber][squareIndex].clearPossibleNumbers(value);
+      this._state[rowNumber][squareIndex].removePossibleNumber(value);
     }
   }
 
   clearColumnBasedOnExistingNumber(columnNumber: number, value: numbers) {
     for (let rowNumber = 0; rowNumber < 9; rowNumber++) {
-      this.state[rowNumber][columnNumber].clearPossibleNumbers(value);
+      this._state[rowNumber][columnNumber].removePossibleNumber(value);
     }
   }
 
@@ -54,14 +51,14 @@ export class Board {
     const boxFirstColumnIndex = this.findBoxIndex(columnNumber);
     for (let rowCount = 0; rowCount < 3; rowCount++) {
       for (let colummCount = 0; colummCount < 3; colummCount++) {
-        this.state[boxFirstRowIndex + rowCount][boxFirstColumnIndex + colummCount].clearPossibleNumbers(value);
+        this._state[boxFirstRowIndex + rowCount][boxFirstColumnIndex + colummCount].removePossibleNumber(value);
       }
     }
   }
   
   display() {
-    this.state.forEach((row) => {
-      console.log(row.map((data) => data.currentNum));
+    this._state.forEach((row) => {
+      console.log(row.map((data) => data.currentNumber));
     })
     console.log('************************************');
   }
@@ -70,27 +67,3 @@ export class Board {
     return number - (number % 3);
   }
 }
-
-const mockSudokuBoard = [
-  [0, 0, 0, 0, 4, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 9]
-]
-
-const mockSudokuBoard2 = [
-  [0, 5, 9, 0, 6, 0, 3, 0, 0],
-  [0, 2, 0, 1, 0, 4, 0, 0, 7],
-  [3, 4, 0, 0, 7, 9, 0, 0, 2],
-  [0, 0, 5, 3, 0, 0, 9, 1, 0],
-  [0, 0, 7, 0, 0, 0, 6, 0, 0],
-  [0, 8, 4, 0, 0, 1, 7, 0, 0],
-  [6, 0, 0, 2, 5, 0, 0, 7, 9],
-  [5, 0, 0, 9, 0, 3, 0, 8, 0],
-  [0, 0, 8, 0, 1, 0, 2, 5, 0]
-]

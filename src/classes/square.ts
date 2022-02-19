@@ -1,31 +1,36 @@
-export type numbers = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | null;
+import { numbers } from '../types';
 
 export class Square {
   private id: number;
-  private possibleNums: numbers[]= ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  currentNum: numbers | null = null;
-  clearedRow: false;
-  clearedColumn: false;
-  clearedBox: false;
+  private _possibleNumbers: numbers[]= ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  private _currentNumber: numbers | null = null;
   constructor(id: number) {
     this.id = id;
   }
 
-  setCurrentNumber(value: numbers) {
-    this.possibleNums = [];
-    this.currentNum = `${value}` as numbers;;
+  get possibleNumbers() {
+    return this._possibleNumbers;
   }
 
-  get isFilled(): boolean {
-    return this.currentNum != null;
+  get currentNumber() {
+    return this._currentNumber;
   }
 
-  clearPossibleNumbers(targetNumber: numbers) {
-    if (!this.currentNum) {
-      this.possibleNums = this.possibleNums.filter((number) => number !== targetNumber);
+  set currentNumber(value: numbers) {
+    this._possibleNumbers = [];
+    this._currentNumber = `${value}` as numbers;;
+  }
+
+  get isFull(): boolean {
+    return this._currentNumber != null;
+  }
+
+  removePossibleNumber(targetNumber: numbers) {
+    if (!this._currentNumber) {
+      this._possibleNumbers = this._possibleNumbers.filter((number) => number !== targetNumber);
     }
-    if (this.possibleNums.length === 1) {
-      this.setCurrentNumber(this.possibleNums[0]);
+    if (this._possibleNumbers.length === 1) {
+      this.currentNumber = this._possibleNumbers[0];
     } 
   }
 }
