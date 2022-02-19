@@ -77,6 +77,12 @@ const mockBoard2: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
+test('eliminatePossibleValuesWithExistingNumbers should set set possibleNumbersRemovedFromRelatedSquares variable to true', () => {
+  board = new Board(mockBoard2);
+  board.clearPossibleValuesWithExistingNumbers();
+  expect(board.state[0][4].possibleNumbersRemovedFromRelatedSquares).toBe(true);
+});
+
 test('eliminatePossibleValuesWithExistingNumbers should clear possible values from row', () => {
   board = new Board(mockBoard2);
   board.clearPossibleValuesWithExistingNumbers();
@@ -118,30 +124,57 @@ test('eliminatePossibleValuesWithExistingNumbers should not clear possible value
   // first row is tested elsewhere
   for (let rowIndex = 1; rowIndex < 9; rowIndex++) {
     for (let columnIndex = 0; columnIndex < 9; columnIndex++) {
+      let square = board.state[rowIndex][columnIndex];
       if (columnIndex !== 4 && (rowIndex > 2 || (columnIndex !== 3 && columnIndex !== 5))) {
-        let square = board.state[rowIndex][columnIndex];
         doesBlankSquareHaveCorrectFields(square);
+      } else {
+        // 
+        squareShouldHaveNumberRemoved(square, '4'); // squares that are eliminated should still have 4 removed
       }
-      // else { // should eliminate 12 boxes. top row doesn't coun
-        //console.log(`(column: ${columnIndex}, row: ${rowIndex})`)
-      //}
     }
   } 
 });
 
+const mockBoard3: importBoard = [
+  [0, 0, 0, 0, 4, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 9]
+]
+
+test('eliminatePossibleValuesWithExistingNumbers can clear multiple numbers out of a square', () => {
+  board = new Board(mockBoard3);
+  board.clearPossibleValuesWithExistingNumbers();
+  // first row is tested elsewhere
+  let topRightSquare = board.state[0][8];
+  expect(topRightSquare.possibleNumbers.includes('4')).toBe(false);
+  expect(topRightSquare.possibleNumbers.includes('9')).toBe(false);
+  expect(topRightSquare.currentNumber).toBe(null);
+  expect(topRightSquare.isFull).toBe(false);
+  expect(topRightSquare.possibleNumbers).toHaveLength(7);
+  let middleBottomSquare = board.state[8][4];
+  expect(middleBottomSquare.possibleNumbers).toHaveLength(7);
+});
 
 
 
 function squareShouldHaveNumberRemoved(square: Square, number: numbers) {
-  expect(square.currentNumber).toBe(null);
-  expect(square.isFull).toBe(false);
-  expect(square.possibleNumbers).toHaveLength(8);
   expect(square.possibleNumbers.includes(number)).toBe(false);
+  // // The rest of these have been tested
+  // expect(square.currentNumber).toBe(null);
+  // expect(square.isFull).toBe(false);
+  // expect(square.possibleNumbers).toHaveLength(8);
 }
 
 function doesBlankSquareHaveCorrectFields(square: Square) {
   expect(square.currentNumber).toBe(null);
   expect(square.isFull).toBe(false);
   expect(square.possibleNumbers).toHaveLength(9);
+  expect(square.possibleNumbersRemovedFromRelatedSquares).toBe(false);
 }
 

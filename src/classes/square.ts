@@ -4,6 +4,8 @@ export class Square {
   private id: number;
   private _possibleNumbers: numbers[]= ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   private _currentNumber: numbers | null = null;
+  possibleNumbersRemovedFromRelatedSquares = false;
+
   constructor(id: number) {
     this.id = id;
   }
@@ -26,6 +28,7 @@ export class Square {
   }
 
   removePossibleNumber(targetNumber: numbers) {
+    if (this.isFull) return;
     if (!this._currentNumber) {
       this._possibleNumbers = this._possibleNumbers.filter((number) => number !== targetNumber);
     }
