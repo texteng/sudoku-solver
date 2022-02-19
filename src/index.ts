@@ -1,5 +1,49 @@
 import { Board } from './classes/board';
-import { easyBoard1 } from '../mockBoards'
+import { easyBoard1, mediumBoard1, veryHardPuzzle1 } from '../mockBoards'
 console.log('Sudoku Solver');
-const board = new Board(easyBoard1);
-board.display();
+
+const board = new Board(mediumBoard1);
+// Createboard
+let container = document.getElementById("container");
+let innerContainerCount = 1;
+let innerContainer = document.createElement("div");
+innerContainer.id = `innerContainer-${innerContainerCount};`
+
+container.appendChild(innerContainer);
+displayBoardinHtml(board);
+// board.viewFullOnConsole();
+
+function displayBoardinHtml(board: Board) {
+  let container = document.getElementById(`innerContainer-${innerContainerCount};`);
+  innerContainerCount++;
+  const topRow = document.createElement("div");
+  topRow.innerText = '__________________________________'
+  container.appendChild(topRow);
+  const state = board.state;
+  for (let rowId in state) {
+    let rowArr = state[rowId];
+    let row = document.createElement("div");
+    row.id = `${rowId}`;
+    row.innerText = '';
+    rowArr.forEach((square) => {
+      row.innerText += `|_${square.currentNumber || '_'}_|`;
+    })
+    container.appendChild(row);
+  }
+  let innerContainer = document.createElement("div");
+  innerContainer.id = `innerContainer-${innerContainerCount};`
+  container.appendChild(innerContainer);
+}
+
+// button.addEventListener('click', (evt) => {
+//   console.log('solve');
+// });
+
+document.getElementById('solve').onclick = function() {
+  board.clearPossibleValuesWithExistingNumbers();
+  displayBoardinHtml(board);
+};​
+
+document.getElementById('view-console').onclick = function() {
+  board.viewFullOnConsole();
+}​;​

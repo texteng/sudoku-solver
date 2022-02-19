@@ -1,5 +1,5 @@
 import { Square } from "./square";
-import { numbers, rawNumbers, importBoard } from '../types';
+import { rawNumbers, importBoard } from '../types';
 export class Board {
 
   private _state: Square[][] = [[]];
@@ -27,16 +27,16 @@ export class Board {
         let currentSquare = this._state[rowNumber][columnNumber];
         if (currentSquare.isFull && !currentSquare.possibleNumbersRemovedFromRelatedSquares) {
           for (let count = 0; count < 9; count++) {
-              // Clears the possible number out of row
-              this._state[rowNumber][count].removePossibleNumber(currentSquare.currentNumber);
+            // Clears the possible number out of row
+            this._state[rowNumber][count].removePossibleNumber(currentSquare.currentNumber);
 
-              // Clears the possible number out of column
-              this._state[count][columnNumber].removePossibleNumber(currentSquare.currentNumber);
+            // Clears the possible number out of column
+            this._state[count][columnNumber].removePossibleNumber(currentSquare.currentNumber);
 
           }
           // Clears possible number out of box
-          const boxFirstRowIndex = this.findBoxIndex(rowNumber);
-          const boxFirstColumnIndex = this.findBoxIndex(columnNumber);
+          const boxFirstRowIndex = rowNumber - (rowNumber % 3);
+          const boxFirstColumnIndex = columnNumber - (columnNumber % 3);
           for (let rowCount = 0; rowCount < 3; rowCount++) {
             if (rowCount !== rowNumber) {
               for (let colummCount = 0; colummCount < 3; colummCount++) {
@@ -51,41 +51,18 @@ export class Board {
       }
     }
   }
-  
-  // clearPossibleValuesInRow(rowNumber: number, value: numbers) {
-  //   for (let squareIndex = 0; squareIndex < 9; squareIndex++) {
-  //     this._state[rowNumber][squareIndex].removePossibleNumber(value);
-  //   }
-  // }
 
-  // clearPossibleValuesInColumn(columnNumber: number, value: numbers) {
-  //   for (let rowNumber = 0; rowNumber < 9; rowNumber++) {
-  //     this._state[rowNumber][columnNumber].removePossibleNumber(value);
-  //   }
-  // }
-
-  // clearPossibleValuesInBox(rowNumber: number, columnNumber: number, value: numbers) {
-  //   const boxFirstRowIndex = this.findBoxIndex(rowNumber);
-  //   const boxFirstColumnIndex = this.findBoxIndex(columnNumber);
-  //   for (let rowCount = 0; rowCount < 3; rowCount++) {
-  //     if (rowCount !== rowNumber) {
-  //       for (let colummCount = 0; colummCount < 3; colummCount++) {
-  //         if (colummCount !== columnNumber) {
-  //           this._state[boxFirstRowIndex + rowCount][boxFirstColumnIndex + colummCount].removePossibleNumber(value);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  
-  display() {
+  viewSimpleOnConsole() {
     this._state.forEach((row) => {
       console.log(row.map((data) => data.currentNumber));
     })
     console.log('************************************');
   }
 
-  private findBoxIndex(number: number) {
-    return number - (number % 3);
+  viewFullOnConsole() {
+    this._state.forEach((row) => {
+      console.log(row);
+    })
+    console.log('************************************');
   }
 }
