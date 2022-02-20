@@ -3,19 +3,19 @@ import { BoxLocation, iterationCallback, navigationIterator } from "../types";
 
 
 
-export const loopThroughRow: navigationIterator = function (board: Board, rowNumber: number, callback: iterationCallback) {
+export const loopThroughRow = function (board: Board, rowNumber: number, callback: iterationCallback) {
   for (let square of board.state[rowNumber]) {
     callback(square);
   }
 }
 
-export const loopThroughColumn: navigationIterator = function (board: Board, columnNumber: number, callback: iterationCallback) {
+export const loopThroughColumn = function (board: Board, columnNumber: number, callback: iterationCallback) {
   for (let row of board.state) {
     callback(row[columnNumber]);
   }
 }
 
-export const loopThroughBox: navigationIterator = function (board: Board, boxLocation: BoxLocation, callback: iterationCallback) {
+export const loopThroughBox = function (board: Board, boxLocation: BoxLocation, callback: iterationCallback) {
   const boxLocationData = {
     'NW': { 'firstRowIndex': 0, 'firstColumnIndex': 0 }, 'N': { 'firstRowIndex': 0, 'firstColumnIndex': 3 }, 'NE': { 'firstRowIndex': 0, 'firstColumnIndex': 6 },
     'W': { 'firstRowIndex': 3, 'firstColumnIndex': 0 }, 'C': { 'firstRowIndex': 3, 'firstColumnIndex': 3 }, 'E': { 'firstRowIndex': 3, 'firstColumnIndex': 6 },

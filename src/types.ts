@@ -27,6 +27,6 @@ export interface iterationCallback {
   (square: Square): void;
 }
   
-export interface navigationIterator {
-  (board: Board, locationId: any, callback: iterationCallback): void;
+export interface navigationIterator<t> {
+  (board: Board, locationId: t, callback: iterationCallback): void;
 }

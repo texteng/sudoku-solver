@@ -15,7 +15,7 @@ const mockBoard1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('eliminatePossibleValuesWithExistingNumbers should set set possibleNumbersRemovedFromRelatedSquares variable to true', () => {
+test.only('eliminatePossibleValuesWithExistingNumbers should set set possibleNumbersRemovedFromRelatedSquares variable to true', () => {
   const board = new Board(mockBoard1);
   clearPossibleValuesWithExistingNumbers(board);
   expect(board.state[0][4].possibleNumbersRemovedFromRelatedSquares).toBe(true);
