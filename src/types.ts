@@ -30,3 +30,5 @@ export interface iterationCallback {
 export interface navigationIterator<t> {
   (board: Board, locationId: t, callback: iterationCallback): void;
 }
+
+export type iteratorType = 'row' | 'column' | 'box';

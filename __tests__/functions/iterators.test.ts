@@ -28,7 +28,7 @@ const mockBoardRows1: importBoard = [
   [9, 8, 7, 6, 5, 4, 3, 2, 1]
 ]
 
-test.only('callback function in loopThroughRow should receive each square in top row.', () => {
+test('callback function in loopThroughRow should receive each square in top row.', () => {
   const board = new Board(mockBoardRows1);
   let count = 0;
   loopThroughRow(board, 0, (square: Square) => {

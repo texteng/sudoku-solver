@@ -3,6 +3,10 @@ env:
   es2021: true
 extends:
   - standard
+rules:
+ semi: 
+  - true
+  - 2
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: latest
@@ -10,3 +14,6 @@ parserOptions:
 plugins:
   - '@typescript-eslint'
 rules: {}
+overrides:
+  -env:
+    jest: true

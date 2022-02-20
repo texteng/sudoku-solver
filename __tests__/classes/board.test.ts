@@ -16,7 +16,7 @@ const blankBoard: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test.only('Board Created', () => {
+test('Board Created', () => {
   board = new Board(blankBoard);
   expect(board).toBeTruthy();
 });

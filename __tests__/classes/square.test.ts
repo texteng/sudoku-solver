@@ -6,7 +6,7 @@ beforeEach(() => {
   square = new Square(1);
 });
 
-test.only('Square Created', () => {
+test('Square Created', () => {
   expect(square).toBeTruthy();
 });
 
