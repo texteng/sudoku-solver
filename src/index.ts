@@ -1,5 +1,6 @@
 import { Board } from './classes/board';
 import { easyBoard1, mediumBoard1, veryHardPuzzle1 } from '../mockBoards'
+import { clearPossibleValuesWithExistingNumbers } from './functions/clearPossibleValuesWithExistingNumbers';
 console.log('Sudoku Solver');
 
 const board = new Board(mediumBoard1);
@@ -40,7 +41,7 @@ function displayBoardinHtml(board: Board) {
 // });
 
 document.getElementById('solve').onclick = function() {
-  board.clearPossibleValuesWithExistingNumbers();
+  clearPossibleValuesWithExistingNumbers(board);
   displayBoardinHtml(board);
 };​
 

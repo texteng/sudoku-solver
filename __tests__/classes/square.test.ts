@@ -1,4 +1,5 @@
-import { Square } from '../src/classes/Square';
+import { Square } from "../../src/classes/square";
+
 let square: Square;
 
 beforeEach(() => {
