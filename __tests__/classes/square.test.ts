@@ -3,11 +3,17 @@ import { Square } from "../../src/classes/square";
 let square: Square;
 
 beforeEach(() => {
-  square = new Square(1);
+  square = new Square(3, 4);
 });
 
 test('Square Created', () => {
   expect(square).toBeTruthy();
+});
+
+test('Square should have correct location', () => {
+  expect(square.location.row).toBe(3);
+  expect(square.location.column).toBe(4);
+  expect(square.location.box).toBe('C');
 });
 
 test('Square has all possibleNumbers', () => {

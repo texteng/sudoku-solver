@@ -1,16 +1,17 @@
 import { Board } from "../classes/board";
-import { BoxLocation, iterationCallback, numbers } from "../types";
-import { loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
+import { iterationCallback, numberType } from "../types";
+import { loopThoughAllIndex, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
 import { remove, xor } from "lodash";
 import { Square } from "../classes/square";
 import { clearPossibleValuesWithExistingNumbers } from "./clearPossibleValuesWithExistingNumbers";
+import { BoxLocation, translateNumberToBoxLocation } from "./box";
 
 /*
 * This function goes through each row searching through each square's at the possible numbers. 
 * If one square has a possible number that is not found in the possible values of all the other squares in that row, then that square will be given that value
 */
 export function narrowDownPossibleValuesOfRow(board: Board, rowNumber: number): void {
-  const possibleValuesOfSelectedCells: numbers[][] = [];
+  const possibleValuesOfSelectedCells: numberType[][] = [];
   loopThroughRow(board, rowNumber, getPossibleValuesOfSelectedCells(possibleValuesOfSelectedCells));
   loopThroughRow(board, rowNumber, narrowDownPossibleValues(xor(...possibleValuesOfSelectedCells)));
 }
@@ -20,7 +21,7 @@ export function narrowDownPossibleValuesOfRow(board: Board, rowNumber: number): 
 * If one square has a possible number that is not found in the possible values of all the other squares in that row, then that square will be given that value
 */
 export function narrowDownPossibleValuesOfColumn(board: Board, columnNumber: number): void {
-  const possibleValuesOfSelectedCells: numbers[][] = [];
+  const possibleValuesOfSelectedCells: numberType[][] = [];
   loopThroughColumn(board, columnNumber, getPossibleValuesOfSelectedCells(possibleValuesOfSelectedCells));
   loopThroughColumn(board, columnNumber, narrowDownPossibleValues(xor(...possibleValuesOfSelectedCells)));
 }
@@ -29,35 +30,35 @@ export function narrowDownPossibleValuesOfColumn(board: Board, columnNumber: num
 * This function goes through a wholebox searching through each square's at the possible numbers. 
 * If one square has a possible number that is not found in the possible values of all the other squares in that row, then that square will be given that value
 */
-export function narrowDownPossibleValuesOfBox(board: Board, boxLocation: BoxLocation): void {
-  const possibleValuesOfSelectedCells: numbers[][] = [];
+export function narrowDownPossibleValuesOfBox(board: Board, index: number | BoxLocation): void {
+  const boxLocation = translateNumberToBoxLocation(index);
+  const possibleValuesOfSelectedCells: numberType[][] = [];
   loopThroughBox(board, boxLocation, getPossibleValuesOfSelectedCells(possibleValuesOfSelectedCells));
   loopThroughBox(board, boxLocation, narrowDownPossibleValues(xor(...possibleValuesOfSelectedCells)));
 }
 
 export function narrowDownAllRows(board: Board) {
-  for (let rowLocation = 0; rowLocation < 9; rowLocation++) {
-    narrowDownPossibleValuesOfRow(board, rowLocation);
+  loopThoughAllIndex(board, (board, index) => {
+    narrowDownPossibleValuesOfRow(board, index as number);
     clearPossibleValuesWithExistingNumbers(board);
-  }
+  });
 }
 
 export function narrowDownAllColumns(board: Board) {
-  for (let columnLocation = 0; columnLocation < 9; columnLocation++) {
-    narrowDownPossibleValuesOfColumn(board, columnLocation);
+  loopThoughAllIndex(board, (board, index) => {
+    narrowDownPossibleValuesOfColumn(board, index as number);
     clearPossibleValuesWithExistingNumbers(board);
-  }
+  });
 }
 
 export function narrowDownAllBoxes(board: Board) {
-  const boxLocations: BoxLocation[] = ['NW', 'N', 'NE', 'W', 'C', 'E', 'SW', 'S', 'SE']
-  for (let boxLocation of boxLocations) {
-    narrowDownPossibleValuesOfBox(board, boxLocation);
+  loopThoughAllIndex(board, (board, index) => {
+    narrowDownPossibleValuesOfBox(board, index);
     clearPossibleValuesWithExistingNumbers(board);
-  }
+  });
 }
 
-function getPossibleValuesOfSelectedCells(possibleValuesOfAllCells: numbers[][]): iterationCallback {
+function getPossibleValuesOfSelectedCells(possibleValuesOfAllCells: numberType[][]): iterationCallback {
   return (square) => {
     if (!square.isFull) {
       possibleValuesOfAllCells.push(square.possibleNumbers);
@@ -65,7 +66,7 @@ function getPossibleValuesOfSelectedCells(possibleValuesOfAllCells: numbers[][])
   };
 }
 
-function narrowDownPossibleValues(uniqueValues: numbers[]): iterationCallback {
+function narrowDownPossibleValues(uniqueValues: numberType[]): iterationCallback {
   return (square: Square) => {
     if (uniqueValues.length === 0 || square.isFull)
       return;

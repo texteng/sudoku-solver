@@ -1,30 +1,31 @@
 import { Board } from "../classes/board";
 import { Square } from "../classes/square";
-import { BoxLocation, iteratorType, numbers } from "../types";
+import { iteratorType, numberType } from "../types";
+import { BoxLocation } from "./box";
 import { loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
 
 export const validateRow = function (board: Board, rowIndex: number) {
-  let iterationCurrentValues: numbers[] = [];
+  let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'row';
   const iterationId = rowIndex;
-  loopThroughRow(board, rowIndex, validateIterator(iterationCurrentValues, typeOfLoop, iterationId))
+  loopThroughRow(board, rowIndex, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
 };
 
 export const validateColumn = function (board: Board, columnIndex: number) {
-  let iterationCurrentValues: numbers[] = [];
+  let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'column';
   const iterationId = columnIndex;
-  loopThroughColumn(board, columnIndex, validateIterator(iterationCurrentValues, typeOfLoop, iterationId))
+  loopThroughColumn(board, columnIndex, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
 };
 
 export const validateBox = function (board: Board, boxLocation: BoxLocation) {
-  let iterationCurrentValues: numbers[] = [];
+  let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'box';
   const iterationId = boxLocation;
-  loopThroughBox(board, boxLocation, validateIterator(iterationCurrentValues, typeOfLoop, iterationId))
+  loopThroughBox(board, boxLocation, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
 };
 
-function validateIterator(iterationCurrentValues: numbers[], typeOfLoop: string, iterationId: number | string) {
+export function validateIteration(iterationCurrentValues: numberType[], typeOfLoop: string, iterationId: number | string) {
   return (square: Square) => {
     if (square.isFull) {
       if (iterationCurrentValues.includes(square.currentNumber)) {
@@ -34,3 +35,9 @@ function validateIterator(iterationCurrentValues: numbers[], typeOfLoop: string,
     }
   };
 }
+
+// // Checks if a square has a unique value in its row, column and box 
+// export const validateSquare(square: Square) {
+
+// }
+

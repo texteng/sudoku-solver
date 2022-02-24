@@ -1,4 +1,4 @@
-import { importBoard, importNumbers, stateType } from '../types';
+import { importBoard, importNumbers, indexes, stateType } from '../types';
 import { Square } from "./square";
 export class Board {
 
@@ -17,9 +17,8 @@ export class Board {
   }
 
   private createBoard(importBoardData: importBoard) {
-    let count = 1;
-    let protoState:any = importBoardData.map((row) => row.map((squareData: importNumbers) => {
-      let square = new Square(count++);
+    let protoState:any = importBoardData.map((row, rowIndex) => row.map((squareData: importNumbers, columnIndex) => {
+      let square = new Square(rowIndex as indexes, columnIndex as indexes);
       if (squareData !== 0) square.currentNumber = `${squareData}`;
       return square;
     }))

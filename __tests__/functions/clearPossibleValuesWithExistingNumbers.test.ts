@@ -1,7 +1,7 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
 import { clearPossibleValuesWithExistingNumbers } from "../../src/functions/clearPossibleValuesWithExistingNumbers";
-import { importBoard, numbers } from "../../src/types";
+import { importBoard, numberType } from "../../src/types";
 
 const mockBoard1: importBoard = [
   [0, 0, 0, 0, 4, 0, 0, 0, 0],
@@ -101,7 +101,7 @@ test('eliminatePossibleValuesWithExistingNumbers can clear multiple numbers out 
 
 
 
-function squareShouldHaveNumberRemoved(square: Square, number: numbers) {
+function squareShouldHaveNumberRemoved(square: Square, number: numberType) {
   expect(square.possibleNumbers.includes(number)).toBe(false);
   // // The rest of these have been tested
   // expect(square.currentNumber).toBe(null);

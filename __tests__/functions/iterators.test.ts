@@ -1,6 +1,6 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
-import { importBoard, BoxLocation, numbers1to9 } from "../../src/types";
+import { importBoard, numbers1to9 } from "../../src/types";
 import { loopThroughColumn, loopThroughRow, loopThroughBox } from "../../src/functions/iterators"
 
 const blankBoard: importBoard = [

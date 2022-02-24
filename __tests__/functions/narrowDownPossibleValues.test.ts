@@ -1,8 +1,7 @@
 import { Board } from "../../src/classes/board";
-import { Square } from "../../src/classes/square";
 import { clearPossibleValuesWithExistingNumbers } from "../../src/functions/clearPossibleValuesWithExistingNumbers";
 import { narrowDownPossibleValuesOfBox, narrowDownPossibleValuesOfColumn, narrowDownPossibleValuesOfRow } from "../../src/functions/narrowDownPossibleValues";
-import { importBoard, numbers } from "../../src/types";
+import { importBoard } from "../../src/types";
 
 const mockRowBoard1: importBoard = [
   [1, 2, 3, 4, 0, 6, 7, 0, 0],
