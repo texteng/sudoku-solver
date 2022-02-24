@@ -1,6 +1,6 @@
 import { Board } from "../classes/board";
 import { iterationCallback, numberType } from "../types";
-import { loopThoughAllIndex, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
+import { loop0to8, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
 import { remove, xor } from "lodash";
 import { Square } from "../classes/square";
 import { clearPossibleValuesWithExistingNumbers } from "./clearPossibleValuesWithExistingNumbers";
@@ -38,21 +38,21 @@ export function narrowDownPossibleValuesOfBox(board: Board, index: number | BoxL
 }
 
 export function narrowDownAllRows(board: Board) {
-  loopThoughAllIndex(board, (board, index) => {
+  loop0to8(board, (board, index) => {
     narrowDownPossibleValuesOfRow(board, index as number);
     clearPossibleValuesWithExistingNumbers(board);
   });
 }
 
 export function narrowDownAllColumns(board: Board) {
-  loopThoughAllIndex(board, (board, index) => {
+  loop0to8(board, (board, index) => {
     narrowDownPossibleValuesOfColumn(board, index as number);
     clearPossibleValuesWithExistingNumbers(board);
   });
 }
 
 export function narrowDownAllBoxes(board: Board) {
-  loopThoughAllIndex(board, (board, index) => {
+  loop0to8(board, (board, index) => {
     narrowDownPossibleValuesOfBox(board, index);
     clearPossibleValuesWithExistingNumbers(board);
   });

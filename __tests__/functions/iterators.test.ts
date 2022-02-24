@@ -1,7 +1,7 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
 import { importBoard, numbers1to9 } from "../../src/types";
-import { loopThroughColumn, loopThroughRow, loopThroughBox } from "../../src/functions/iterators"
+import { loopThroughColumn, loopThroughRow, loopThroughBox, loopThroughRelatedSquares } from "../../src/functions/iterators"
 
 const blankBoard: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -216,3 +216,28 @@ test('callback function in loopThroughBox should change each square on southeast
     countTest--;
   });
 });
+
+const relatedSquaresBoard1: importBoard = [
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 0, 0, 0],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 0, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0]
+]
+
+test('loopThroughRelatedSquares', () => {
+  const board = new Board(relatedSquaresBoard1);
+  const testSquare = board.state[4][4];
+  let count = 0;
+  loopThroughRelatedSquares(board, testSquare, (square: Square) => {
+    console.log('square', square.location);
+    expect(square.isFull).toBe(true);
+    expect(square.currentNumber).toBe('1');
+    count++;
+  })
+  expect(count).toEqual(20);
+})

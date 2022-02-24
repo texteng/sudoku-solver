@@ -99,8 +99,6 @@ test('eliminatePossibleValuesWithExistingNumbers can clear multiple numbers out 
   expect(middleBottomSquare.possibleNumbers).toHaveLength(7);
 });
 
-
-
 function squareShouldHaveNumberRemoved(square: Square, number: numberType) {
   expect(square.possibleNumbers.includes(number)).toBe(false);
   // // The rest of these have been tested

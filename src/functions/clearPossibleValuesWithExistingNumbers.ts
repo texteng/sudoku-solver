@@ -1,4 +1,7 @@
 import { Board } from "../classes/board";
+import { Square } from "../classes/square";
+import { loopThroughRelatedSquares } from "./iterators";
+import { validateSquare } from "./validators";
 
 /*
 * This function goes through the board looking for existing numbers. 
@@ -9,28 +12,21 @@ export function clearPossibleValuesWithExistingNumbers(board: Board): void {
     for (let columnNumber = 0; columnNumber < 9; columnNumber++) {
       let currentSquare = board.state[rowNumber][columnNumber];
       if (currentSquare.isFull && !currentSquare.possibleNumbersRemovedFromRelatedSquares) {
-        for (let count = 0; count < 9; count++) {
-          // Clears the possible number out of row
-          board.state[rowNumber][count].removePossibleNumber(currentSquare.currentNumber);
-
-          // Clears the possible number out of column
-          board.state[count][columnNumber].removePossibleNumber(currentSquare.currentNumber);
-
-        }
-        // Clears possible number out of box
-        const boxFirstRowIndex = rowNumber - (rowNumber % 3);
-        const boxFirstColumnIndex = columnNumber - (columnNumber % 3);
-        for (let rowCount = 0; rowCount < 3; rowCount++) {
-          if (rowCount !== rowNumber) {
-            for (let colummCount = 0; colummCount < 3; colummCount++) {
-              if (colummCount !== columnNumber) {
-                board.state[boxFirstRowIndex + rowCount][boxFirstColumnIndex + colummCount].removePossibleNumber(currentSquare.currentNumber);
-              }
-            }
-          }
-        }
-        currentSquare.possibleNumbersRemovedFromRelatedSquares = true;
+        removePossibleValuesFromRelatedSquares(board, currentSquare);
       }
     }
   }
 }
+
+export function removePossibleValuesFromRelatedSquares(board: Board, currentSquare: Square) {
+  // try {
+  //   validateSquare(board, currentSquare)
+  // } catch (error) {
+  //   throw error;
+  // }
+  loopThroughRelatedSquares(board, currentSquare, (square) => {
+    square.removePossibleNumber(currentSquare.currentNumber);
+  });
+  currentSquare.possibleNumbersRemovedFromRelatedSquares = true;
+}
+

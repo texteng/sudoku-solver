@@ -138,3 +138,24 @@ test('narrowDownPossibleValues has correct values for column test 1', () => {
   narrowDownPossibleValuesOfBox(board, 'NW');
   expect(board.state[2][2].currentNumber).toBe('9');
 });
+
+
+export const brokenRow1: importBoard = [
+  [1, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+
+// test('clearPossibleValuesWithExistingNumbers should validate squares', () => {
+//   const board = new Board(brokenRow1);
+//   const testSquare = board.state[0][0];
+//   expect(() => {
+//     clearPossibleValuesWithExistingNumbers(board);
+//   }).toThrow(new Error('square 0 0 is invalid because of square 0 4'));
+// });

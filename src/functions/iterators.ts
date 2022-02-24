@@ -1,4 +1,5 @@
 import { Board } from "../classes/board";
+import { Square } from "../classes/square";
 import { iterationCallback } from "../types";
 import { BoxLocation, boxLocationData, translateNumberToBoxLocation } from "./box";
 
@@ -27,8 +28,25 @@ export const loopThroughBox = function (board: Board, index: BoxLocation| number
   }
 }
 
-export const loopThoughAllIndex = function (board: Board, callBack: (board: Board, index: number | BoxLocation) => void) {
+export const loop0to8 = function (board: Board, callBack: (board: Board, index: number | BoxLocation) => void) {
   for (let index = 0; index < 9; index++) {
     callBack(board, index); // Box location callbacks can convert numbers to with the function translateNumberToBoxLocation();
   }
 }
+
+export const loopThroughRelatedSquares = function (board: Board, square: Square, callBack: iterationCallback) {
+  const squareRowNumber = square.location.row;
+  const squareColumnNumber = square.location.column;
+  const squareBoxLocation = square.location.box;
+  board.state.forEach((row, rowIndex) => {
+    row.forEach((currentSquare, columnIndex) => {
+      let { row, column, box } = currentSquare.location;
+      if (
+        (row === squareRowNumber || column === squareColumnNumber || box === squareBoxLocation) &&
+        !(row === squareRowNumber && column === squareColumnNumber) 
+      ) {
+        callBack(board.state[rowIndex][columnIndex]);
+      }
+    })
+  })
+} 
