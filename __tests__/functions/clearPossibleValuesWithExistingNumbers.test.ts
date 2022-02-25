@@ -113,3 +113,22 @@ function doesBlankSquareHaveCorrectFields(square: Square) {
   expect(square.possibleNumbers).toHaveLength(9);
   expect(square.possibleNumbersRemovedFromRelatedSquares).toBe(false);
 }
+
+export const brokenBox1: importBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 3, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 3, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+test('narrowDownPossibleValues should validate board before changing', () => {
+  const board = new Board(brokenBox1);
+  expect(() => {
+    clearPossibleValuesWithExistingNumbers(board)
+  }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
+});

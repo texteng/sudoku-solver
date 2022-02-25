@@ -234,7 +234,6 @@ test('loopThroughRelatedSquares', () => {
   const testSquare = board.state[4][4];
   let count = 0;
   loopThroughRelatedSquares(board, testSquare, (square: Square) => {
-    console.log('square', square.location);
     expect(square.isFull).toBe(true);
     expect(square.currentNumber).toBe('1');
     count++;

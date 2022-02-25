@@ -78,7 +78,7 @@ test('narrowDownPossibleValues column test 1 created correctly', () => {
   expect(board.state[8][0].possibleNumbers).toHaveLength(2);
 });
 
-test('narrowDownPossibleValues has correct values for column test 1', () => {
+test('narrowDownPossibleValuesOfColumn has correct values for column test 1', () => {
   const board = new Board(mockColumnBoard1);
   clearPossibleValuesWithExistingNumbers(board);
   narrowDownPossibleValuesOfColumn(board, 0);
@@ -105,7 +105,7 @@ test('narrowDownPossibleValues column test 1 created correctly', () => {
   expect(board.state[8][0].possibleNumbers).toHaveLength(9);
 });
 
-test('narrowDownPossibleValues has correct values for column test 1', () => {
+test('narrowDownPossibleValuesOfColumn has correct values for column test 1', () => {
   const board = new Board(mockColumnBoard2);
   clearPossibleValuesWithExistingNumbers(board);
   narrowDownPossibleValuesOfColumn(board, 0);
@@ -132,30 +132,10 @@ test('narrowDownPossibleValues box test 1 created correctly', () => {
   expect(board.state[2][2].possibleNumbers).toHaveLength(3);
 });
 
-test('narrowDownPossibleValues has correct values for column test 1', () => {
+test('narrowDownPossibleValuesOfBox has correct values for column test 1', () => {
   const board = new Board(mockBoxBoard1);
   clearPossibleValuesWithExistingNumbers(board);
   narrowDownPossibleValuesOfBox(board, 'NW');
   expect(board.state[2][2].currentNumber).toBe('9');
 });
 
-
-export const brokenRow1: importBoard = [
-  [1, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
-
-// test('clearPossibleValuesWithExistingNumbers should validate squares', () => {
-//   const board = new Board(brokenRow1);
-//   const testSquare = board.state[0][0];
-//   expect(() => {
-//     clearPossibleValuesWithExistingNumbers(board);
-//   }).toThrow(new Error('square 0 0 is invalid because of square 0 4'));
-// });

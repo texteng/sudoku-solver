@@ -12,18 +12,18 @@ export function clearPossibleValuesWithExistingNumbers(board: Board): void {
     for (let columnNumber = 0; columnNumber < 9; columnNumber++) {
       let currentSquare = board.state[rowNumber][columnNumber];
       if (currentSquare.isFull && !currentSquare.possibleNumbersRemovedFromRelatedSquares) {
-        removePossibleValuesFromRelatedSquares(board, currentSquare);
+        try {
+          removePossibleValuesFromRelatedSquares(board, currentSquare);
+        } catch (e) {
+          throw (e);
+        }
       }
     }
   }
 }
 
 export function removePossibleValuesFromRelatedSquares(board: Board, currentSquare: Square) {
-  // try {
-  //   validateSquare(board, currentSquare)
-  // } catch (error) {
-  //   throw error;
-  // }
+  validateSquare(board, currentSquare);
   loopThroughRelatedSquares(board, currentSquare, (square) => {
     square.removePossibleNumber(currentSquare.currentNumber);
   });
