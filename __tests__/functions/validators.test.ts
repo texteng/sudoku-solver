@@ -86,20 +86,20 @@ test('validateSquare should find errors in boxes', () => {
   }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
 });
 
-const mockColumnBoard1: importBoard = [
-  [1, 2, 3, 0, 0, 0, 0, 0, 0],
+const mockErrorFreeBoard1: importBoard = [
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
   [4, 5, 6, 0, 0, 0, 0, 0, 0],
   [7, 8, 9, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  [2, 0, 0, 0, 0, 0, 0, 0, 0],
+  [3, 0, 0, 0, 0, 0, 0, 0, 0],
+  [5, 0, 0, 0, 0, 0, 0, 0, 0],
+  [6, 0, 0, 0, 0, 0, 0, 0, 0],
+  [8, 0, 0, 0, 0, 0, 0, 0, 0],
+  [9, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
 test('validate square should not find errors in valid board', () => {
-  const board = new Board(mockColumnBoard1);
+  const board = new Board(mockErrorFreeBoard1);
   const testSquare = board.state[0][0];
   expect(() => {
     validateSquare(board, testSquare);

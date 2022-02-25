@@ -23,6 +23,7 @@ export function clearPossibleValuesWithExistingNumbers(board: Board): void {
 }
 
 export function removePossibleValuesFromRelatedSquares(board: Board, currentSquare: Square) {
+  if (!currentSquare.isFull || currentSquare.possibleNumbersRemovedFromRelatedSquares) return;
   validateSquare(board, currentSquare);
   loopThroughRelatedSquares(board, currentSquare, (square) => {
     square.removePossibleNumber(currentSquare.currentNumber);
