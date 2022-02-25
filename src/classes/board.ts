@@ -4,8 +4,8 @@ export class Board {
 
   private _state: stateType;
 
-  constructor(importBoardData: importBoard) {
-    this.createBoard(importBoardData);
+  constructor(importBoardData: importBoard, hardValidate: boolean = false) {
+    this.createBoard(importBoardData, hardValidate);
   }
 
   get state() {
@@ -16,10 +16,13 @@ export class Board {
     this._state = newState;
   }
 
-  private createBoard(importBoardData: importBoard) {
+  private createBoard(importBoardData: importBoard, hardValidate: boolean) {
     let protoState:any = importBoardData.map((row, rowIndex) => row.map((squareData: importNumbers, columnIndex) => {
       let square = new Square(rowIndex as indexes, columnIndex as indexes);
-      if (squareData !== 0) square.currentNumber = `${squareData}`;
+      if (squareData !== 0) {
+        square.currentNumber = `${squareData}`;
+        square.validated = hardValidate;
+      };
       return square;
     }))
     this._state = protoState as stateType;

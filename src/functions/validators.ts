@@ -36,11 +36,16 @@ export const validateIteration = function (iterationCurrentValues: numberType[],
   };
 }
 
-export function validateSquare(board: Board, currentSquare: Square) {
+export function validateSquare(board: Board, currentSquare: Square, hardValidate = true) {
+  if (hardValidate && currentSquare.validated) return;
   if (!currentSquare.isFull) return;
   loopThroughRelatedSquares(board, currentSquare, (square) => {
     if (square.isFull && square.currentNumber === currentSquare.currentNumber) {
       throw new Error(`square ${currentSquare.location.row} ${currentSquare.location.column} is invalid because of square ${square.location.row} ${square.location.column}`);
     }
   });
+  if (hardValidate) {
+    currentSquare.validated = true;
+  }
+  
 }

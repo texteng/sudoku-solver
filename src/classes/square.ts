@@ -2,13 +2,13 @@ import { BoxLocation, setBoxBySquareCoordinates } from '../functions/box';
 import { indexes, numberType } from '../types';
 
 export class Square {
-  private id: number;
   private _row: indexes;
   private _column: indexes;
   private _box: BoxLocation;
   private _possibleNumbers: numberType[]= ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   private _currentNumber: numberType | null = null;
   possibleNumbersRemovedFromRelatedSquares = false;
+  validated = false;
 
   constructor(row: indexes, column: indexes) {
     this._row = row;
