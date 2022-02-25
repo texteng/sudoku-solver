@@ -50,4 +50,9 @@ export class Square {
       this.currentNumber = this._possibleNumbers[0];
     } 
   }
+
+  // test functions- Only to be used in tests
+  set testPossibleNumbers(possibleNumbers: numberType[]) {
+    this._possibleNumbers = possibleNumbers;
+  }
 }
