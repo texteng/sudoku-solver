@@ -1,6 +1,6 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
-import { clearPossibleValuesWithExistingNumbers } from "../../src/functions/clearPossibleValuesWithExistingNumbers";
+import { findAllPossibles } from "../../src/functions/findPossibles";
 import { importBoard, numberType } from "../../src/types";
 
 const mockBoard1: importBoard = [
@@ -15,15 +15,15 @@ const mockBoard1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('eliminatePossibleValuesWithExistingNumbers should set set possibleNumbersRemovedFromRelatedSquares variable to true', () => {
+test('findAllPossibles should set set possibleNumbersRemovedFromRelatedSquares variable to true', () => {
   const board = new Board(mockBoard1);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   expect(board.state[0][4].possibleNumbersRemovedFromRelatedSquares).toBe(true);
 });
 
-test('eliminatePossibleValuesWithExistingNumbers should clear possible values from row', () => {
+test('findAllPossibles should clear possible values from row', () => {
   const board = new Board(mockBoard1);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   for (let squareIndex in board.state[0]) {
     if (squareIndex !== '4') {
       let square = board.state[0][squareIndex];
@@ -32,9 +32,9 @@ test('eliminatePossibleValuesWithExistingNumbers should clear possible values fr
   } 
 });
 
-test('eliminatePossibleValuesWithExistingNumbers should clear possible values from column', () => {
+test('findAllPossibles should clear possible values from column', () => {
   const board = new Board(mockBoard1);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   for (let rowIndex in board.state[0]) {
     if (rowIndex !== '0') {
       let square = board.state[rowIndex][4];
@@ -43,9 +43,9 @@ test('eliminatePossibleValuesWithExistingNumbers should clear possible values fr
   } 
 });
 
-test('eliminatePossibleValuesWithExistingNumbers should clear possible values from box', () => {
+test('findAllPossibles should clear possible values from box', () => {
   const board = new Board(mockBoard1);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
     for (let columnIndex = 3; columnIndex < 6; columnIndex++) {
       if (rowIndex !== 0 || columnIndex !== 4) {
@@ -56,9 +56,9 @@ test('eliminatePossibleValuesWithExistingNumbers should clear possible values fr
   } 
 });
 
-test('eliminatePossibleValuesWithExistingNumbers should not clear possible values from unrelated boxes', () => {
+test('findAllPossibles should not clear possible values from unrelated boxes', () => {
   const board = new Board(mockBoard1);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   // first row is tested elsewhere
   for (let rowIndex = 1; rowIndex < 9; rowIndex++) {
     for (let columnIndex = 0; columnIndex < 9; columnIndex++) {
@@ -85,9 +85,9 @@ const mockBoard2: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 9]
 ]
 
-test('eliminatePossibleValuesWithExistingNumbers can clear multiple numbers out of a square', () => {
+test('findAllPossibles can clear multiple numbers out of a square', () => {
   const board = new Board(mockBoard2);
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   // first row is tested elsewhere
   let topRightSquare = board.state[0][8];
   expect(topRightSquare.possibleNumbers.includes('4')).toBe(false);
@@ -126,9 +126,9 @@ export const brokenBox1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-test('narrowDownPossibleValues should validate board before changing', () => {
+test('findAllPossibles should validate board before changing', () => {
   const board = new Board(brokenBox1);
   expect(() => {
-    clearPossibleValuesWithExistingNumbers(board)
+    findAllPossibles(board)
   }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
 });

@@ -1,11 +1,11 @@
 import { Board } from './classes/board';
 import { easyBoard1, mediumBoard1, hardBoard1, evilPuzzle1 } from '../mockBoards'
-import { clearPossibleValuesWithExistingNumbers } from './functions/clearPossibleValuesWithExistingNumbers';
-import { narrowDownAllBoxes, narrowDownAllColumns, narrowDownAllRows } from './functions/narrowDownPossibleValues';
+import { findAllPossibles } from './functions/findPossibles';
+import { findAllSinglesBoxes, findAllSinglesColumns, findAllSinglesRows } from './functions/findSingles';
 console.log('Sudoku Solver');
 
 
-const board = new Board(hardBoard1);
+const board = new Board(evilPuzzle1);
 // Createboard
 let container = document.getElementById("container");
 let innerContainerCount = 1;
@@ -44,27 +44,27 @@ function displayBoardinHtml(board: Board) {
 
 
 document.getElementById('existing-numbers').onclick = () => {
-  clearPossibleValuesWithExistingNumbers(board);
+  findAllPossibles(board);
   displayBoardinHtml(board);
 };​
 
 document.getElementById('narrow-rows').onclick = () => {
   console.log('narrow-rows');
-  narrowDownAllRows(board);
+  findAllSinglesRows(board);
   displayBoardinHtml(board);
 };​
 
 
 document.getElementById('narrow-columns').onclick = () => {
   console.log('narrow-columns');
-  narrowDownAllColumns(board);
+  findAllSinglesColumns(board);
   displayBoardinHtml(board);
 };​
 
 
 document.getElementById('narrow-boxes').onclick = () => {
   console.log('narrow-boxes');
-  narrowDownAllBoxes(board);
+  findAllSinglesBoxes(board);
   displayBoardinHtml(board);
 };​
 
