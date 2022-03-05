@@ -3,7 +3,7 @@ import { iterationCallback, numberType } from "../types";
 import { loop0to8, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
 import { remove, xor } from "lodash";
 import { Square } from "../classes/square";
-import { findAllPossibles } from "./findPossibles";
+import { findAllPossibles } from "./findSimplePossibles";
 import { BoxLocation, translateNumberToBoxLocation } from "./box";
 
 /*

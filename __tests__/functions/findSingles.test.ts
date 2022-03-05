@@ -1,5 +1,5 @@
 import { Board } from "../../src/classes/board";
-import { findAllPossibles } from "../../src/functions/findPossibles";
+import { findAllPossibles } from "../../src/functions/findSimplePossibles";
 import { findSinglesBox, findSinglesColumn, findSinglesRow } from "../../src/functions/findSingles";
 import { importBoard } from "../../src/types";
 

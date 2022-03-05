@@ -1,6 +1,6 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
-import { findAllPossibles } from "../../src/functions/findPossibles";
+import { findAllPossibles } from "../../src/functions/findSimplePossibles";
 import { importBoard, numberType } from "../../src/types";
 
 const mockBoard1: importBoard = [

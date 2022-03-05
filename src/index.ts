@@ -1,6 +1,6 @@
 import { Board } from './classes/board';
 import { easyBoard1, mediumBoard1, hardBoard1, evilPuzzle1 } from '../mockBoards'
-import { findAllPossibles } from './functions/findPossibles';
+import { findAllPossibles } from './functions/findSimplePossibles';
 import { findAllSinglesBoxes, findAllSinglesColumns, findAllSinglesRows } from './functions/findSingles';
 console.log('Sudoku Solver');
 
