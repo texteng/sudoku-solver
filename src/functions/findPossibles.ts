@@ -1,6 +1,6 @@
 import { Board } from "../classes/board";
 import { Square } from "../classes/square";
-import { boardIterator as boardIterator, relatedSquaresIterator } from "./iterators";
+import { boardIterator, relatedSquaresIterator } from "./iterators";
 import { validateSquare } from "./validators";
 
 /*
