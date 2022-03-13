@@ -1,10 +1,10 @@
+import { xor } from "lodash";
 import { Board } from "../classes/board";
-import { numberType } from "../types";
-import { INDICES_0_TO_8, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
-import { remove, xor } from "lodash";
 import { Square } from "../classes/square";
-import { findAllPossibles } from "./findPossibles";
+import { numberType } from "../types";
 import { BoxLocation, translateNumberToBoxLocation } from "./box";
+import { findAllPossibles } from "./findPossibles";
+import { INDICES_0_TO_8, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
 
 /*
 * This function goes through each row searching through each square's at the possible numbers. 
@@ -60,15 +60,13 @@ function findSinglesByGenerator(generator: () => Generator<Square>): void {
     }
   }
   
-  const uniqueValues = xor(...possibleValuesOfSelectedCells);
+  let uniqueValues = xor(...possibleValuesOfSelectedCells);
   for (const square of generator()) {
     if (uniqueValues.length === 0 || square.isFull)
       continue;
     for (let uniqueValue of uniqueValues) {
       if (square.possibleNumbers.includes(uniqueValue)) {
         square.currentNumber = uniqueValue;
-        uniqueValue = null;
-        remove(uniqueValue, null);
         break;
       }
     }

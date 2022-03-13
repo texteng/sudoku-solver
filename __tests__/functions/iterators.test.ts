@@ -1,6 +1,6 @@
 import { Board } from "../../src/classes/board";
 import { importBoard, numbers1to9, numberType } from "../../src/types";
-import { loopThroughColumn, loopThroughRow, loopThroughBox, loopThroughRelatedSquares } from "../../src/functions/iterators"
+import { loopThroughColumn, loopThroughRow, loopThroughBox, loopThroughRelatedSquares, loopThroughAll } from "../../src/functions/iterators"
 
 const blankBoard: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -14,6 +14,16 @@ const blankBoard: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
+
+test('loopThoughAll should loop though all squares', () => {
+  const board = new Board(blankBoard);
+  let count = 0;
+  for (const square of loopThroughAll(board)) {
+    expect(square.isFull).toBe(false);
+    count++;
+  }
+  expect(count).toEqual(81);
+}) 
 
 const mockBoardRows1: importBoard = [
   [1, 2, 3, 4, 5, 6, 7, 8, 9],

@@ -2,9 +2,15 @@ import { Board } from "../classes/board";
 import { Square } from "../classes/square";
 import { BoxLocation, boxLocationData, translateNumberToBoxLocation } from "./box";
 
-
-
 export const INDICES_0_TO_8 = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+export const loopThroughAll = function* (board: Board) {
+  for (let rowIndex of INDICES_0_TO_8) {
+    for (let columnIndex of INDICES_0_TO_8) {
+      yield board.state[rowIndex][columnIndex];
+    }
+  }
+}
 
 export const loopThroughRow = function* (board: Board, rowNumber: number) {
   for (let square of board.state[rowNumber]) {
@@ -33,15 +39,13 @@ export const loopThroughRelatedSquares = function* (board: Board, square: Square
   const squareRowNumber = square.location.row;
   const squareColumnNumber = square.location.column;
   const squareBoxLocation = square.location.box;
-  for (const boardRow of board.state) {
-    for (const currentSquare of boardRow) {
-      let { row, column, box } = currentSquare.location;
-      if (
-        (row === squareRowNumber || column === squareColumnNumber || box === squareBoxLocation) &&
-        !(row === squareRowNumber && column === squareColumnNumber) 
-      ) {
-        yield currentSquare;
-      }
+  for (const currentSquare of loopThroughAll(board)) {
+    let { row, column, box } = currentSquare.location;
+    if (
+      (row === squareRowNumber || column === squareColumnNumber || box === squareBoxLocation) &&
+      !(row === squareRowNumber && column === squareColumnNumber) 
+    ) {
+      yield currentSquare;
     }
   }
 } 
