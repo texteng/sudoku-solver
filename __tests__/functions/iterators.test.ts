@@ -1,6 +1,5 @@
 import { Board } from "../../src/classes/board";
-import { Square } from "../../src/classes/square";
-import { importBoard, numbers1to9 } from "../../src/types";
+import { importBoard, numbers1to9, numberType } from "../../src/types";
 import { loopThroughColumn, loopThroughRow, loopThroughBox, loopThroughRelatedSquares } from "../../src/functions/iterators"
 
 const blankBoard: importBoard = [
@@ -31,47 +30,53 @@ const mockBoardRows1: importBoard = [
 test('callback function in loopThroughRow should receive each square in top row.', () => {
   const board = new Board(mockBoardRows1);
   let count = 0;
-  loopThroughRow(board, 0, (square: Square) => {
+  for (const square of loopThroughRow(board, 0)) {
     count++;
     expect(square.currentNumber).toBe(`${count}`);
-  });
+  }
+  expect(count).toBe(9);
 });
 
 test('callback function in loopThroughRow should receive each square in bottom row.', () => {
   const board = new Board(mockBoardRows1);
   let count = 9;
-  loopThroughRow(board, 8, (square: Square) => {
+  for (const square of loopThroughRow(board, 8)) {
     expect(square.currentNumber).toBe(`${count}`);
     count--;
-  });
+  }
+  expect(count).toBe(0);
 });
 
 test('callback function in loopThroughRow should change each square in top row.', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9  = 1;
-  loopThroughRow(board, 0, (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughRow(board, 0)) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate++;
-  });
+  }
+  expect(countCreate).toBe(10);
   let countTest = 0;
-  loopThroughRow(board, 0, (square: Square) => {
+  for (const square of loopThroughRow(board, 0)) {
     countTest++;
     expect(square.currentNumber).toBe(`${countTest}`);
-  });
+  }
+  expect(countTest).toBe(9);
 });
 
 test('callback function in loopThroughRow should change each square on bottom row.', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9 = 9;
-  loopThroughRow(board, 8, (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughRow(board, 8)) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate--;
-  });
+  }
+  expect(countCreate).toBe(0);
   let countTest = 9;
-  loopThroughRow(board, 8, (square: Square) => {
+  for (const square of loopThroughRow(board, 8)) {
     expect(square.currentNumber).toBe(`${countTest}`);
     countTest--;
-  });
+  }
+  expect(countCreate).toBe(0);
 });
 
 const mockBoardColumns1: importBoard = [
@@ -89,47 +94,53 @@ const mockBoardColumns1: importBoard = [
 test('callback function in loopThroughColumn should receive each square in first column.', () => {
   const board = new Board(mockBoardColumns1);
   let count = 0;
-  loopThroughColumn(board, 0, (square: Square) => {
+  for (const square of loopThroughColumn(board, 0)) {
     count++;
     expect(square.currentNumber).toBe(`${count}`);
-  })
+  }
+  expect(count).toBe(9);
 });
 
 test('callback function in loopThroughColumn should receive each square in last column.', () => {
   const board = new Board(mockBoardColumns1);
   let count = 9;
-  loopThroughColumn(board, 8, (square: Square) => {
+  for (const square of loopThroughColumn(board, 8)) {
     expect(square.currentNumber).toBe(`${count}`);
     count--;
-  })
+  }
+  expect(count).toBe(0);
 });
 
 test('callback function in loopThroughColumn should change each square in first column', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9  = 1;
-  loopThroughColumn(board, 0, (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughColumn(board, 0)) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate++;
-  });
+  }
+  expect(countCreate).toBe(10);
   let countTest = 0;
-  loopThroughColumn(board, 0, (square: Square) => {
+  for (const square of loopThroughColumn(board, 0)) {
     countTest++;
     expect(square.currentNumber).toBe(`${countTest}`);
-  });
+  }
+  expect(countTest).toBe(9);
 });
 
 test('callback function in loopThroughColumn should change each square on last column.', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9 = 9;
-  loopThroughColumn(board, 8, (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughColumn(board, 8)) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate--;
-  });
+  }
+  expect(countCreate).toBe(0);
   let countTest = 9;
-  loopThroughColumn(board, 8, (square: Square) => {
+  for (const square of loopThroughColumn(board, 8)) {
     expect(square.currentNumber).toBe(`${countTest}`);
     countTest--;
-  });
+  }
+  expect(countTest).toBe(0);
 });
 
 const mockBoardBox1: importBoard = [
@@ -149,72 +160,81 @@ test('callback function in loopThroughBox should receive each square in northwes
   const board = new Board(mockBoardBox1);
   let count = 0;
 
-  loopThroughBox(board, 'NW', (square: Square) => {
+  for (const square of loopThroughBox(board, 'NW')) {
     count++;
     expect(square.currentNumber).toBe(`${count}`);
-  })
+  }
+  expect(count).toBe(9);
 });
 
 test('callback function in loopThroughBox should receive each square in center box.', () => {
   const board = new Board(mockBoardBox1);
   let count = 0;
 
-  loopThroughBox(board, 'C', (square: Square) => {
+  for (const square of loopThroughBox(board, 'C')) {
     count++;
     expect(square.currentNumber).toBe(`${count}`);
-  })
+  }
+  expect(count).toBe(9);
 });
 
 test('callback function in loopThroughBox should receive each square in southeast box.', () => {
   const board = new Board(mockBoardBox1);
   let count = 0;
 
-  loopThroughBox(board, 'SE', (square: Square) => {
+  for (const square of loopThroughBox(board, 'SE')) {
     count++;
     expect(square.currentNumber).toBe(`${count}`);
-  })
+  }
+  expect(count).toBe(9);
 });
 
 test('callback function in loopThroughBox should change each square in northwest box', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9  = 1;
-  loopThroughBox(board, 'NW', (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughBox(board, 'NW')) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate++;
-  });
+  }
+  expect(countCreate).toBe(10);
   let countTest = 0;
-  loopThroughBox(board, 'NW', (square: Square) => {
+  for (const square of loopThroughBox(board, 'NW')) {
     countTest++;
     expect(square.currentNumber).toBe(`${countTest}`);
-  });
+  }
+  expect(countTest).toBe(9);
 });
 
 test('callback function in loopThroughBox should change each square in center box.', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9 = 9;
-  loopThroughBox(board, 'C', (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughBox(board, 'C')) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate--;
-  });
+  }
+  expect(countCreate).toBe(0);
   let countTest = 9;
-  loopThroughBox(board, 'C', (square: Square) => {
+  for (const square of loopThroughBox(board, 'C')) {
     expect(square.currentNumber).toBe(`${countTest}`);
     countTest--;
-  });
+  }
+  expect(countTest).toBe(0);
 });
 
 test('callback function in loopThroughBox should change each square on southeast box.', () => {
   const board = new Board(blankBoard);
   let countCreate: numbers1to9 = 9;
-  loopThroughBox(board, 'SE', (square: Square) => {
-    square.currentNumber = `${countCreate}`;
+  for (const square of loopThroughBox(board, 'SE')) {
+    square.currentNumber = `${countCreate}` as numberType;
     countCreate--;
-  });
+  }
+  expect(countCreate).toBe(0);
   let countTest = 9;
-  loopThroughBox(board, 'SE', (square: Square) => {
+  for (const square of loopThroughBox(board, 'SE')) {
     expect(square.currentNumber).toBe(`${countTest}`);
     countTest--;
-  });
+  }
+  expect(countTest).toBe(0);
 });
 
 const relatedSquaresBoard1: importBoard = [
@@ -233,10 +253,10 @@ test('loopThroughRelatedSquares', () => {
   const board = new Board(relatedSquaresBoard1);
   const testSquare = board.state[4][4];
   let count = 0;
-  loopThroughRelatedSquares(board, testSquare, (square: Square) => {
+  for (const square of loopThroughRelatedSquares(board, testSquare)) {
     expect(square.isFull).toBe(true);
     expect(square.currentNumber).toBe('1');
     count++;
-  })
+  }
   expect(count).toEqual(20);
 })

@@ -25,9 +25,9 @@ export function findAllPossibles(board: Board): void {
 export function findPossibles(board: Board, currentSquare: Square) {
   if (!currentSquare.isFull || currentSquare.possibleNumbersRemovedFromRelatedSquares) return;
   validateSquare(board, currentSquare);
-  loopThroughRelatedSquares(board, currentSquare, (square) => {
+  for (const square of loopThroughRelatedSquares(board, currentSquare)) {
     square.removePossibleNumber(currentSquare.currentNumber);
-  });
+  }
   currentSquare.possibleNumbersRemovedFromRelatedSquares = true;
 }
 
