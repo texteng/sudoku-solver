@@ -242,14 +242,14 @@ const relatedSquaresBoard1: importBoard = [
   [0, 0, 0, 0, 1, 0, 0, 0, 0],
   [0, 0, 0, 0, 1, 0, 0, 0, 0],
   [0, 0, 0, 1, 1, 1, 0, 0, 0],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 9, 1, 1, 1, 1],
   [0, 0, 0, 1, 1, 1, 0, 0, 0],
   [0, 0, 0, 0, 1, 0, 0, 0, 0],
   [0, 0, 0, 0, 1, 0, 0, 0, 0],
   [0, 0, 0, 0, 1, 0, 0, 0, 0]
 ]
 
-test('loopThroughRelatedSquares', () => {
+test('loopThroughRelatedSquares should loop through all squares related to given square, and it should not go though given square', () => {
   const board = new Board(relatedSquaresBoard1);
   const testSquare = board.state[4][4];
   let count = 0;

@@ -98,7 +98,7 @@ const mockErrorFreeBoard1: importBoard = [
   [9, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('validate square should not find errors in valid board', () => {
+test('validateSquare should not find errors in valid board', () => {
   const board = new Board(mockErrorFreeBoard1);
   const testSquare = board.state[0][0];
   expect(() => {

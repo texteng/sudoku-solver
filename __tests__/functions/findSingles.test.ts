@@ -15,7 +15,7 @@ const mockRowBoard1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('findSignlesRow row test created correctly', () => {
+test('findAllPossibles row test created correctly', () => {
   const board = new Board(mockRowBoard1);
   findAllPossibles(board);
   expect(board.state[0][4].possibleNumbers).toHaveLength(3);
@@ -23,7 +23,7 @@ test('findSignlesRow row test created correctly', () => {
   expect(board.state[0][8].possibleNumbers).toHaveLength(2);
 });
 
-test('findSignlesRow has correct values for test', () => {
+test('findAllPossibles has correct values for test', () => {
   const board = new Board(mockRowBoard1);
   findAllPossibles(board);
   findSinglesRow(board, 0);
@@ -42,7 +42,7 @@ const mockRowBoard2: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('findSignlesRow test 2 created correctly', () => {
+test('findAllPossibles test 2 created correctly', () => {
   const board = new Board(mockRowBoard2);
   findAllPossibles(board);
   expect(board.state[0][6].possibleNumbers).toHaveLength(8);
@@ -50,7 +50,7 @@ test('findSignlesRow test 2 created correctly', () => {
   expect(board.state[0][8].possibleNumbers).toHaveLength(9);
 });
 
-test('findSignlesRow test 2 has correct values', () => {
+test('findAllPossibles test 2 has correct values', () => {
   const board = new Board(mockRowBoard2);
   findAllPossibles(board);
   findSinglesRow(board, 0);
