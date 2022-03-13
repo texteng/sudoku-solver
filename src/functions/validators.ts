@@ -8,42 +8,47 @@ export const validateRow = function (board: Board, rowIndex: number) {
   let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'row';
   const iterationId = rowIndex;
-  loopThroughRow(board, rowIndex, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
+  validateIteration(iterationCurrentValues, typeOfLoop, iterationId, loopThroughRow(board, rowIndex));
 };
 
 export const validateColumn = function (board: Board, columnIndex: number) {
   let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'column';
   const iterationId = columnIndex;
-  loopThroughColumn(board, columnIndex, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
+  validateIteration(iterationCurrentValues, typeOfLoop, iterationId, loopThroughColumn(board, columnIndex))
 };
 
 export const validateBox = function (board: Board, boxLocation: BoxLocation) {
   let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'box';
   const iterationId = boxLocation;
-  loopThroughBox(board, boxLocation, validateIteration(iterationCurrentValues, typeOfLoop, iterationId))
+  validateIteration(iterationCurrentValues, typeOfLoop, iterationId, loopThroughBox(board, boxLocation))
 };
 
-export const validateIteration = function (iterationCurrentValues: numberType[], typeOfLoop: string, iterationId: number | string) {
-  return (square: Square) => {
+export const validateIteration = function (
+  iterationCurrentValues: numberType[], 
+  typeOfLoop: string, 
+  iterationId: number | string,
+  generator: Generator<Square>
+) {
+  for (const square of generator) {
     if (square.isFull) {
       if (iterationCurrentValues.includes(square.currentNumber)) {
         throw new Error(`${typeOfLoop} ${iterationId} is invalid`);
       }
       iterationCurrentValues.push(square.currentNumber);
     }
-  };
+  }
 }
 
 export function validateSquare(board: Board, currentSquare: Square, hardValidate = true) {
   if (hardValidate && currentSquare.validated) return;
   if (!currentSquare.isFull) return;
-  loopThroughRelatedSquares(board, currentSquare, (square) => {
+  for (const square of loopThroughRelatedSquares(board, currentSquare)) {
     if (square.isFull && square.currentNumber === currentSquare.currentNumber) {
       throw new Error(`square ${currentSquare.location.row} ${currentSquare.location.column} is invalid because of square ${square.location.row} ${square.location.column}`);
     }
-  });
+  }
   if (hardValidate) {
     currentSquare.validated = true;
   }
