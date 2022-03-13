@@ -4,14 +4,14 @@ import { Square } from "../classes/square";
 import { numberType } from "../types";
 import { BoxLocation, translateNumberToBoxLocation } from "./box";
 import { findAllPossibles } from "./findPossibles";
-import { INDICES_0_TO_8, loopThroughBox, loopThroughColumn, loopThroughRow } from "./iterators";
+import { INDICES_0_TO_8, boxIterator, columnIterator, rowIterator } from "./iterators";
 
 /*
 * This function goes through each row searching through each square's at the possible numbers. 
 * If one square has a possible number that is not found in the possible values of all the other squares in that row, then that square will be given that value
 */
 export function findSinglesRow(board: Board, rowNumber: number): void {
-  findSinglesByGenerator(() => loopThroughRow(board, rowNumber));
+  findSinglesByGenerator(() => rowIterator(board, rowNumber));
 }
 
 /*
@@ -19,7 +19,7 @@ export function findSinglesRow(board: Board, rowNumber: number): void {
 * If one square has a possible number that is not found in the possible values of all the other squares in that row, then that square will be given that value
 */
 export function findSinglesColumn(board: Board, columnNumber: number): void {
-  findSinglesByGenerator(() => loopThroughColumn(board, columnNumber));
+  findSinglesByGenerator(() => columnIterator(board, columnNumber));
 }
 
 /*
@@ -28,7 +28,7 @@ export function findSinglesColumn(board: Board, columnNumber: number): void {
 */
 export function findSinglesBox(board: Board, index: number | BoxLocation): void {
   const boxLocation = translateNumberToBoxLocation(index);
-  findSinglesByGenerator(() => loopThroughBox(board, boxLocation));
+  findSinglesByGenerator(() => boxIterator(board, boxLocation));
 }
 
 export function findAllSinglesRows(board: Board) {

@@ -1,6 +1,6 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
-import { loopThroughRow } from "../../src/functions/iterators";
+import { rowIterator } from "../../src/functions/iterators";
 import { validateBox, validateColumn, validateRow, validateSquare } from "../../src/functions/validators";
 import { importBoard } from "../../src/types";
 
