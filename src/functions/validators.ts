@@ -22,7 +22,11 @@ export const validateBox = function (board: Board, boxLocation: BoxLocation) {
   let iterationCurrentValues: numberType[] = [];
   const typeOfLoop: iteratorType = 'box';
   const iterationId = boxLocation;
-  validateIteration(iterationCurrentValues, typeOfLoop, iterationId, boxIterator(board, boxLocation))
+  try {
+    validateIteration(iterationCurrentValues, typeOfLoop, iterationId, boxIterator(board, boxLocation))
+  } catch (e) {
+    throw e.message
+  }
 };
 
 export const validateIteration = function (

@@ -1,8 +1,10 @@
 import { Board } from "../classes/board";
 import { Square } from "../classes/square";
-import { BoxLocation, boxLocationData, translateNumberToBoxLocation } from "./box";
+import { indexes } from "../types";
+import { BoxLocation, boxLocationData } from "./box";
 
-export const INDICES_0_TO_8 = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+export const INDICES_0_TO_8: indexes[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+export const BOX_INDICES: BoxLocation[] = ['NW', 'N', 'NE', 'W', 'C', 'E', 'SW', 'S', 'SW'];
 
 export const boardIterator = function* (board: Board) {
   for (let rowIndex of INDICES_0_TO_8) {
@@ -24,10 +26,9 @@ export const columnIterator = function* (board: Board, columnNumber: number) {
   }
 }
 
-export const boxIterator = function* (board: Board, index: BoxLocation| number) {
-  const boxLocation = translateNumberToBoxLocation(index);
-  const boxFirstRowIndex = boxLocationData[boxLocation].firstRowIndex;
-  const boxFirstColumnIndex = boxLocationData[boxLocation].firstColumnIndex;
+export const boxIterator = function* (board: Board, index: BoxLocation) {
+  const boxFirstRowIndex = boxLocationData[index].firstRowIndex;
+  const boxFirstColumnIndex = boxLocationData[index].firstColumnIndex;
   for (let rowIndex = boxFirstRowIndex; rowIndex < boxFirstRowIndex + 3; rowIndex++) {
     for (let columnIndex = boxFirstColumnIndex; columnIndex < boxFirstColumnIndex + 3; columnIndex++) {
       yield board.state[rowIndex][columnIndex];
