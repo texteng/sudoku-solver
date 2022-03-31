@@ -46,22 +46,20 @@ export const validateIteration = function (
 }
 
 export function validateSquare(board: Board, currentSquare: Square, hardValidate = true) {
-  if (hardValidate && currentSquare.validated) return;
-  if (!currentSquare.isFull) return;
+  if (!currentSquare.isFull || (hardValidate && currentSquare.validated)) return;
   for (const square of relatedSquaresIterator(board, currentSquare)) {
     if (square.isFull && square.currentNumber === currentSquare.currentNumber) {
-      console.log('currentSquare', currentSquare);
+      board.valid = false;
       throw new Error(`square ${currentSquare.location.row} ${currentSquare.location.column} is invalid because of square ${square.location.row} ${square.location.column}`);
     }
   }
   if (hardValidate) {
     currentSquare.validated = true;
   }
-  
 }
 
-export function validateBoard(board: Board) {
+export function validateBoard(board: Board, hardValidate = true) {
   for (let square of boardIterator(board)) {
-    validateSquare(board, square)
+    validateSquare(board, square, hardValidate);
   }
 }

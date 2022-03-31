@@ -3,6 +3,7 @@ import { Square } from "./square";
 export class Board {
 
   private _state: stateType;
+  valid = true;
 
   constructor(importBoardData: importBoard, hardValidate: boolean = false) {
     this.createBoard(importBoardData, hardValidate);

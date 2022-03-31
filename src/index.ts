@@ -7,7 +7,8 @@ import { validateBoard } from './functions/validators';
 console.log('Sudoku Solver');
 
 
-const board = new Board(evilPuzzle1);
+const board = new Board(hardBoard1);
+
 // Createboard
 let container = document.getElementById("container");
 let innerContainerCount = 1;
