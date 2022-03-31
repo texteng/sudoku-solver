@@ -4,7 +4,7 @@ import { indexes } from "../types";
 import { BoxLocation, boxLocationData } from "./box";
 
 export const INDICES_0_TO_8: indexes[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-export const BOX_INDICES: BoxLocation[] = ['NW', 'N', 'NE', 'W', 'C', 'E', 'SW', 'S', 'SW'];
+export const BOX_INDICES: BoxLocation[] = ['NW', 'N', 'NE', 'W', 'C', 'E', 'SW', 'S', 'SE'];
 
 export const boardIterator = function* (board: Board) {
   for (let rowIndex of INDICES_0_TO_8) {

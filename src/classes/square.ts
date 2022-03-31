@@ -41,14 +41,17 @@ export class Square {
     return this._currentNumber != null;
   }
 
-  removePossibleNumber(targetNumber: numberType) {
+  // returns true if number changed 
+  removePossibleNumber(targetNumber: numberType): boolean {
     if (this.isFull) return;
     if (!this._currentNumber) {
       this._possibleNumbers = this._possibleNumbers.filter((number) => number !== targetNumber);
     }
     if (this._possibleNumbers.length === 1) {
       this.currentNumber = this._possibleNumbers[0];
-    } 
+      return true;
+    }
+    return false;
   }
 
   // test functions- Only to be used in tests

@@ -18,6 +18,7 @@ export class Board {
 
   private createBoard(importBoardData: importBoard, hardValidate: boolean) {
     let protoState:any = importBoardData.map((row, rowIndex) => row.map((squareData: importNumbers, columnIndex) => {
+      // TODO validate if the board is only 9 X 9;
       let square = new Square(rowIndex as indexes, columnIndex as indexes);
       if (squareData !== 0) {
         square.currentNumber = `${squareData}`;

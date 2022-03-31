@@ -3,7 +3,7 @@ import { Board } from '../classes/board';
 import { Square } from '../classes/square';
 import { numberType } from '../types';
 import { BoxLocation } from './box';
-import { findPossibles } from './findPossibles';
+import { findAllPossibles, findPossibles } from './findPossibles';
 import { boxIterator, BOX_INDICES, columnIterator, INDICES_0_TO_8, rowIterator } from './iterators';
 
 /*
@@ -34,18 +34,24 @@ export function findAllSinglesRows(board: Board) {
   for (const index of INDICES_0_TO_8) {
     findSinglesRow(board, index);
   }
+  findAllPossibles(board);
+
 }
 
 export function findAllSinglesColumns(board: Board) {
   for (const index of INDICES_0_TO_8) {
     findSinglesColumn(board, index);
   }
+  findAllPossibles(board);
+
 }
 
 export function findAllSinglesBoxes(board: Board) {
   for (const index of BOX_INDICES) {
     findSinglesBox(board, index);
   }
+  findAllPossibles(board);
+
 }
 
 function findSinglesByIterator(board: Board, iterator: () => Generator<Square>): void {
@@ -55,16 +61,15 @@ function findSinglesByIterator(board: Board, iterator: () => Generator<Square>):
       possibleValuesOfSelectedCells.push(square.possibleNumbers);
     }
   }
-  
   let uniqueValues = xor(...possibleValuesOfSelectedCells);
   for (const square of iterator()) {
     if (uniqueValues.length === 0 || square.isFull)
       continue;
     for (let uniqueValue of uniqueValues) {
-      if (square.possibleNumbers.includes(uniqueValue)) {
+      if (!square.isFull && square.possibleNumbers.includes(uniqueValue)) {
         square.currentNumber = uniqueValue;
-        findPossibles(board, square);
-        break;
+        // findPossibles(board, square);
+        return; // If an alternative value is found
       }
     }
   }

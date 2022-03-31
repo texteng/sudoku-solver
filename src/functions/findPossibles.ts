@@ -11,7 +11,11 @@ export function findAllPossibles(board: Board): void {
   for (let currentSquare of boardIterator(board)) {
     if (currentSquare.isFull && !currentSquare.possibleNumbersRemovedFromRelatedSquares) {
       try {
-        findPossibles(board, currentSquare);
+        if (findPossibles(board, currentSquare)) {
+          // if something changed, restart function;
+          findAllPossibles(board); 
+          return;
+        }
       } catch (e) {
         throw (e);
       }
@@ -21,10 +25,12 @@ export function findAllPossibles(board: Board): void {
 
 export function findPossibles(board: Board, currentSquare: Square) {
   if (!currentSquare.isFull || currentSquare.possibleNumbersRemovedFromRelatedSquares) return;
-  validateSquare(board, currentSquare);
+  // validateSquare(board, currentSquare);
+  let changedSomething = false;
   for (const square of relatedSquaresIterator(board, currentSquare)) {
-    square.removePossibleNumber(currentSquare.currentNumber);
+    if (square.removePossibleNumber(currentSquare.currentNumber)) changedSomething = true;
   }
   currentSquare.possibleNumbersRemovedFromRelatedSquares = true;
+  return changedSomething;
 }
 
