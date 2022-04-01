@@ -1,6 +1,4 @@
 import { Board } from "../../src/classes/board";
-import { Square } from "../../src/classes/square";
-import { rowIterator } from "../../src/functions/iterators";
 import { validateBoard, validateSquare } from "../../src/functions/validators";
 import { importBoard } from "../../src/types";
 
@@ -129,9 +127,5 @@ export const validBoard2: importBoard = [
 test('validateSquare should mark previously validated squares as true', () => {
   const board = new Board(validBoard2);
   validateSquare(board, board.state[0][0]);
-  
-  expect(() => {
-    board.state[0][0].validated
-    
-  }).toBe(true);
+  expect(board.state[0][0].validated).toBe(true);
 });
