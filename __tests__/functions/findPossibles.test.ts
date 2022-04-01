@@ -99,12 +99,28 @@ test('findAllPossibles can clear multiple numbers out of a square', () => {
   expect(middleBottomSquare.possibleNumbers).toHaveLength(7);
 });
 
+const mockBoard3: importBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 2, 3],
+  [0, 0, 0, 0, 0, 0, 4, 5, 6],
+  [0, 0, 0, 0, 0, 1, 0, 8, 9],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+
+test('findAllPossibles should recursively find possible numbers', () => {
+  const board = new Board(mockBoard3);
+  findAllPossibles(board);
+  let topRightSquare = board.state[0][6];
+  expect(topRightSquare.isFull).toBe(true);
+  expect(topRightSquare.currentNumber).toBe("1");
+});
+
 function squareShouldHaveNumberRemoved(square: Square, number: numberType) {
   expect(square.possibleNumbers.includes(number)).toBe(false);
-  // // The rest of these have been tested
-  // expect(square.currentNumber).toBe(null);
-  // expect(square.isFull).toBe(false);
-  // expect(square.possibleNumbers).toHaveLength(8);
 }
 
 function doesBlankSquareHaveCorrectFields(square: Square) {
@@ -114,21 +130,21 @@ function doesBlankSquareHaveCorrectFields(square: Square) {
   expect(square.possibleNumbersRemovedFromRelatedSquares).toBe(false);
 }
 
-export const brokenBox1: importBoard = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 3, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 3, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+// export const brokenBox1: importBoard = [
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 3, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 3, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0]
+// ];
 
-test('findAllPossibles should validate board before changing', () => {
-  const board = new Board(brokenBox1);
-  expect(() => {
-    findAllPossibles(board)
-  }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
-});
+// test('findAllPossibles should validate board before changing', () => {
+//   const board = new Board(brokenBox1);
+//   expect(() => {
+//     findAllPossibles(board)
+//   }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
+// });

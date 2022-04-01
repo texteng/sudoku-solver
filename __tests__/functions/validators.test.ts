@@ -1,7 +1,7 @@
 import { Board } from "../../src/classes/board";
 import { Square } from "../../src/classes/square";
 import { rowIterator } from "../../src/functions/iterators";
-import { validateBox, validateColumn, validateRow, validateSquare } from "../../src/functions/validators";
+import { validateBoard, validateSquare } from "../../src/functions/validators";
 import { importBoard } from "../../src/types";
 
 export const brokenRow1: importBoard = [
@@ -16,11 +16,11 @@ export const brokenRow1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-test('validateRows should find errors in rows', () => {
+test('validateBoard should find errors in rows', () => {
   const board = new Board(brokenRow1);
   expect(() => {
-    validateRow(board, 0)
-  }).toThrow(new Error('row 0 is invalid'));
+    validateBoard(board)
+  }).toThrow(new Error('square 0 0 is invalid because of square 0 4'));
 });
 
 test('validateSquare should find errors in rows', () => {
@@ -44,11 +44,11 @@ export const brokenColumn1: importBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-test('validateColumn should find errors in columns', () => {
+test('validateBoard should find errors in columns', () => {
   const board = new Board(brokenColumn1);
   expect(() => {
-    validateColumn(board, 0)
-  }).toThrow(new Error('column 0 is invalid'));
+    validateBoard(board)
+  }).toThrow(new Error('square 1 0 is invalid because of square 6 0'));
 });
 
 test('validateSquare should find errors in columns', () => {
@@ -74,8 +74,8 @@ export const brokenBox1: importBoard = [
 test('validateBoxes should find errors in boxes', () => {
   const board = new Board(brokenBox1);
   expect(() => {
-    validateBox(board, 'NW')
-  }).toThrow(new Error('box NW is invalid'));
+    validateBoard(board)
+  }).toThrow(new Error('square 1 1 is invalid because of square 2 2'));
 });
 
 test('validateSquare should find errors in boxes', () => {
@@ -98,11 +98,40 @@ const mockErrorFreeBoard1: importBoard = [
   [9, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
+test('validateBoard should not find errors in valid board', () => {
+  const board = new Board(mockErrorFreeBoard1);
+  const testSquare = board.state[0][0];
+  expect(() => {
+    validateBoard(board);
+  }).not.toThrowError();
+});
+
 test('validateSquare should not find errors in valid board', () => {
   const board = new Board(mockErrorFreeBoard1);
   const testSquare = board.state[0][0];
   expect(() => {
     validateSquare(board, testSquare);
   }).not.toThrowError();
+});
 
+export const validBoard2: importBoard = [
+  [1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+test('validateSquare should mark previously validated squares as true', () => {
+  const board = new Board(validBoard2);
+  validateSquare(board, board.state[0][0]);
+  
+  expect(() => {
+    board.state[0][0].validated
+    
+  }).toBe(true);
 });
